@@ -52,4 +52,50 @@ The application will start on port 8080 and expose the H2 console at `/h2-consol
 
 The initial project skeleton is built and verified with a passing test suite for the application context and JPA repository behavior.
 
+## Milestone 2: Product REST API foundation
+
+This milestone adds the HTTP-facing layer for the Product domain, including DTO-driven validation and a clean service-controller separation.
+
+### Included in this milestone
+
+- ProductController with CRUD endpoints under `/api/v1/products`
+- ProductService with business logic and transactional boundaries
+- Create, update, and patch request DTOs
+- Product response DTO for entity-to-API mapping
+- Centralized validation and not-found exception handling
+- Pagination, sorting, and category filtering support on list queries
+- Unit and integration tests covering service and controller behavior
+
+### Why this matters
+
+This is the first point where the application becomes a real API instead of just a data-access project. It demonstrates the classic request flow:
+
+1. HTTP request enters the controller
+2. DTO validation occurs before processing
+3. Service enforces business rules
+4. Repository persists or reads the entity
+5. Mapper converts the entity to a response DTO
+6. `@RestControllerAdvice` returns consistent error payloads
+
+### Key design decisions
+
+- DTOs are used to decouple the API contract from the persistence model.
+- Validation is placed at the API boundary using Bean Validation.
+- Constructor injection keeps dependencies explicit and testable.
+- The service layer owns business logic and transactional behavior.
+- Exception handling is centralized to keep controller code focused.
+
+### Product API endpoints
+
+- `POST /api/v1/products`
+- `GET /api/v1/products`
+- `GET /api/v1/products/{id}`
+- `PUT /api/v1/products/{id}`
+- `PATCH /api/v1/products/{id}`
+- `DELETE /api/v1/products/{id}`
+
+### Current status
+
+Milestone 1 and Milestone 2 are both in place and verified with passing tests.
+
 ---
